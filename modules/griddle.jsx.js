@@ -340,13 +340,16 @@ var Griddle = React.createClass({
             this.setPage(currentPage - 1);
         }
     },
+    setSortDirection: function setSortDirection(value) {
+        this.setState({sortDirection: value});
+    },
     changeSort: function changeSort(column) {
         if (this.props.enableSort === false) {
             return;
         }
 
         if (this.props.useExternal) {
-            this.props.externalChangeSort(column, this.props.externalSortColumn === column ? !this.props.externalSortAscending : true);
+            this.props.externalChangeSort(this.setSortDirection, column, this.props.externalSortColumn === column ? !this.props.externalSortAscending : true);
             return;
         }
         var columnMeta = find(this.props.columnMetadata, { columnName: column }) || {};
